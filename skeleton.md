@@ -205,3 +205,107 @@ npm start
 ```
 
 Then, navigate to `http://localhost:3000
+
+
+With these styling updates, your React application now has a polished header, setting a solid foundation for building out the rest of the skeleton loading screens and other features.
+
+
+Applying Grid Layout
+
+To arrange the Article and User components side by side, we'll use CSS Grid. This powerful layout system allows us to design complex user interfaces with ease. Open the `index.css` file and append the following styles:
+
+```css
+h2 {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 100px;
+}
+```
+
+Explanation of Styles
+
+- **h2**: Adds a padding to the bottom of the `h2` elements and a subtle border to visually separate the headers from the content.
+- **.content**: Defines the layout of the content area. The `display: grid;` property turns the content area into a grid container. The `grid-template-columns: 2fr 1fr;` property creates two columns with a ratio of 2:1, meaning the Articles component will take up twice as much space as the User component. The `gap: 100px;` property adds space between the grid items.
+
+With these styles, the Articles and User components will be displayed side by side, with the Articles component taking up two-thirds of the width and the User component taking up one-third.
+
+Viewing the Layout
+
+To see the changes, make sure your development server is running:
+
+```bash
+npm start
+```
+
+Then, navigate to `http://localhost:3000`.
+
+
+Save your code, and you’ll see on the browser that the Article is on the right and the User details on the left:
+
+
+
+
+Fetching Data
+
+We're going to use the MealDB API for our data fetching: https://www.themealdb.com/api.php.
+
+In our `App.js`, let's create a state to store our data when we fetch it.
+
+```jsx
+const [meals, setMeals] = useState(null);
+```
+
+Initially, our `meals` state will be `null` because we don't have any meal data yet. However, when this component is rendered to the DOM, we need to fetch the data. To do this, we'll use the `useEffect` hook, which runs automatically after the component has been rendered.
+
+Let's create a `useEffect` and use a `setTimeout` so that we can see the effect of the skeleton loader for a bit longer. Note that we wouldn't typically use a delay like this in a production application. Copy and paste the code below into the `App.js` file:
+
+```jsx
+import React, { useState, useEffect } from 'react';
+import Home from './components/Home';
+
+function App() {
+
+  const [meals, setMeals] = useState(null);
+
+  // runs automatically after initial render
+  useEffect(() => {
+    setTimeout( async () => {
+      const res = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=chicken');
+      const data = await res.json();
+      setMeals(data);
+    }, 5000)
+  }, [])
+
+
+  return (
+    <div className="App">
+      <header>
+        <h1>Meal Recipes</h1>
+      </header>
+
+      <div className="content">
+        <Home />
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Now we need to check if we have our meal results. Let's use conditional rendering in React to display our meal recipe results. Copy and paste the code below into the `App.js` file:
+
+
+
+
+Using this writing style (Introduction),  modify this:
+
