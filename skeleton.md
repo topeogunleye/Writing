@@ -70,41 +70,25 @@ export default App;
 
 ## Creating Components
 
-Now, let's create the necessary components. In the `src` directory, create a new folder called `components`. Inside this folder, create two files: `User.js` and `Articles.js`.
+Now, let's create the necessary components. In the `src` directory, create a new folder called `components`. Inside this folder, create one file: `Home.js`.
 
-### User.js
+```
+Home.js
 
-```jsx
 import React from 'react';
 
-const User = () => {
+const Home = () => {
   return (
-    <div className="user">
-      <h2>User Details</h2>
+    <div className="home">
+     
     </div>
   );
 }
 
-export default User;
+export default Home;
 ```
 
-### Articles.js
-
-```jsx
-import React from 'react';
-
-const Articles = () => {
-  return (
-    <div className="articles">
-      <h2>All Articles</h2>
-    </div>
-  );
-}
-
-export default Articles;
-```
-
-With these steps, you've set up a basic React application structure and created components for User and Articles, which will serve as the foundation for implementing skeleton screens. This setup ensures a clean slate, allowing you to focus on building the skeleton loading screens that enhance user experience during data fetching.
+With these steps, you've set up a basic React application structure and created components for our landing page, which will serve as the foundation for implementing skeleton screens. This setup ensures a clean slate, allowing you to focus on building the skeleton loading screens that enhance user experience during data fetching.
 
 
 ## Adding Styles to the Application
