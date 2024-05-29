@@ -216,10 +216,105 @@ function App() {
 export default App;
 ```
 
-Now we need to check if we have our meal results. Let's use conditional rendering in React to display our meal recipe results. Copy and paste the code below into the `App.js` file:
+Now we need to check if we have our meal results. Let's use conditional rendering in React to display our meal recipe results. Copy and paste the code below into the `Home.js` file:
+
+```.jsx
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'
 
 
+const Home = ( ) => {
+    const [meals, setMeals] = useState(null);
 
+
+  useEffect(() => {
+    setTimeout(async () => {
+      const res = await fetch(
+        "https://www.themealdb.com/api/json/v1/1/search.php?s=chicken"
+      );
+      const meals = await res.json();
+      setMeals(meals);
+      console.log(meals.meals[0])
+    }, 5000);
+  }, []);
+
+
+  return (
+    <>
+      <div className="bg-gray-900 text-white min-h-screen">
+        <div className="m-auto max-w-3xl flex flex-col items-center justify-center text-center">
+
+
+          <div id="meals" className="meals">
+            {meals &&
+              meals.meals.map((meal) => (
+                <div className="meal" key={meal.idMeal}>
+                  <Link to={`/MealInfo/${meal.idMeal}`}>
+                    <img
+                      className="meal-img"
+                      src={meal.strMealThumb}
+                      alt={meal.strMeal}
+                    />
+                    <div className="meal-info" data-mealid={meal.idMeal}>
+                      <h3>{meal.strMeal}</h3>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+          </div>
+          ){"}"}
+        </div>
+      </div>
+    </>
+  );
+};
+
+
+export default Home;
+```
+
+### Wrapping the App with BrowserRouter
+Let’s wrap our App in main.js with BrowserRouter from react-router-dom. This is because we're using Link from react-router-dom in our Home component, which is calling useContext. The context it is looking for is provided by BrowserRouter, but our app is not wrapped by a BrowserRouter. Your main.js should be like this:
+
+```.jsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+import { BrowserRouter } from 'react-router-dom'
+
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
+```
+
+### Creating a Reusable Skeleton Component
+
+We aim to create a base skeleton element component that is reusable and can be configured into different shapes. To achieve this, let's start by creating a new folder named `skeletons` within our `src` directory. Inside this folder, we'll create a file named `skeletonElement.js`. This file will house our base skeleton component, which is designed to be both reusable and customizable. 
+
+Here's the code to include in the `skeletonElement.js` file:
+
+```.jsx
+import React from 'react';
+import './Skeleton.css';
+
+const SkeletonElement = ({ type }) => {
+  const classes = `skeleton ${type}`;
+
+  return (
+    <div className={classes}></div>
+  )
+}
+
+export default SkeletonElement
+```
+
+In this code, we define a `SkeletonElement` component that accepts a `type` prop. This `type` prop allows us to customize the shape of the skeleton element by applying different CSS classes. The component then returns a `div` with the CSS classes applied.
 
 Using this writing style (Introduction),  modify this:
 
