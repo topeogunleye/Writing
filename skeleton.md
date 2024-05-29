@@ -58,8 +58,7 @@ function App() {
       </header>
 
       <div className="content">
-        <Articles />
-        <User />
+
       </div>
     </div>
   );
@@ -90,6 +89,28 @@ export default Home;
 
 With these steps, you've set up a basic React application structure and created components for our landing page, which will serve as the foundation for implementing skeleton screens. This setup ensures a clean slate, allowing you to focus on building the skeleton loading screens that enhance user experience during data fetching.
 
+Now we’re going to nest the Home component inside the content div in our App.js component. Copy the code below into your app.js to do this:
+
+```.jsx
+import Home from './Home';
+
+
+function App() {
+  return (
+    <div className="App">
+      <header>
+        <h1>Meal Recipes</h1>
+      </header>
+
+      <div className="content">
+        <Home />
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
 
 ## Adding Styles to the Application
 
