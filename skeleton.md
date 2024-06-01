@@ -321,5 +321,401 @@ export default SkeletonElement
 
 In this code, we define a `SkeletonElement` component that accepts a `type` prop. This `type` prop allows us to customize the shape of the skeleton element by applying different CSS classes. The component then returns a `div` with the CSS classes applied.
 
+Let’s create the style for our skeleton component by creating a file named Skeleton.css and adding the below styles in it:
+
+/* basic styles */
+.skeleton {
+  background: #ddd;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+
+.skeleton.title {
+  width: 50%;
+  height: 24px;
+  margin-bottom: 15px;
+}
+
+
+.imageBig {
+  width: 240px;
+  height: 240px;
+}
+
+
+.imageMealInfo {
+  width: 92vw;
+  height: 48vh;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+
+.mealInfo {
+  width: 176px;
+  height: 24px;
+}
+
+
+.textBig {
+  width: 240px;
+  height: 1152px;
+}
+
+
+.liText {
+  width: 100px;
+  height: 16px;
+  margin: 4px 15px;
+}
+
+
+.imageSmall {
+  width: 240px;
+  height: 240px;
+}
+
+
+@media screen and (min-width: 1080px) {
+  .imageMealInfo {
+    max-width: 320px;
+    max-height: 320px;
+  }
+}
+@media screen and (min-width: 767px) {
+  .imageSmall {
+    width: 208px;
+    height: 224px;
+  }
+
+
+  .title {
+    width: 50%;
+    height: 24px;
+  }
+
+
+  .imageBig {
+    min-width: 100vw;
+    min-height: 320px;
+  }
+
+
+  .imageMealInfo {
+    max-width: 200px;
+    max-height: 200px;
+    margin-bottom: 8rem;
+  }
+
+
+  .mealInfo {
+    width: 512px;
+    height: 24px;
+  }
+
+
+  .textBig {
+    width: 576px;
+    height: 456px;
+  }
+
+
+  .liText {
+    width: 100px;
+    height: 16px;
+  }
+}
+
+
+@media screen and (min-width: 475px) {
+  .imageSmall {
+    width: 208px;
+    height: 212px;
+  }
+
+
+  .imageMealInfo {
+    width: 92vw;
+    height: 62vh;
+  }
+ 
+}
+
+
+@media screen and (min-width: 425px) {
+  .imageBig {
+    width: 312px;
+    height: 312px;
+  }
+
+
+  .textBig {
+    width: 318.75px;
+    height: 840px;
+  }
+}
+
+
+@media screen and (min-width: 375px) {
+  .imageBig {
+    width: 281.25px;
+    height: 281.25px;
+  }
+
+
+  .textBig {
+    width: 281.25px;
+    height: 960px;
+  }
+
+
+ 
+}
+/* skeleton profile */
+.skeleton-wrapper {
+  /* margin: 20px auto; */
+  padding: 10px 15px;
+  border-radius: 4px;
+  position: relative;
+}
+
+
+.wrapper {
+  border-radius: 4px;
+  position: relative;
+}
+
+
+/* Category */
+.catImg {
+  width: 177px;
+  height: 110px;
+}
+
+
+.catName {
+  width: 75px;
+  height: 28px;
+}
+
+
+/* themes */
+.light {
+  background: #f2f2f2;
+}
+
+
+.dark {
+  background: #444;
+}
+
+
+.dark .skeleton {
+  background: #777;
+}
+
+
+/* animation effects */
+.shimmer-wrapper {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  animation: loading 2.5s infinite;
+}
+
+
+.shimmer {
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-20deg);
+  box-shadow: 0 0 30px 30px rgba(255, 255, 255, 0.05);
+}
+
+
+.dark .shimmer {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+
+@keyframes loading {
+  0% {
+    transform: translateX(-150%);
+  }
+  50% {
+    transform: translateX(-60%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
+
+
+/* skeleton profile */
+.skeleton-profile {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 30px;
+  align-items: center;
+}
+
+
+/* themes */
+.skeleton-wrapper.light {
+  background: #f2f2f2;
+}
+.skeleton-wrapper.dark {
+  background: #444;
+}
+.skeleton-wrapper.dark .skeleton {
+  background: #777;
+}
+
+Explanation of Styles for Skeleton Loading
+
+1. Skeleton Element Styles: The `SkeletonElement.js` file defines a reusable skeleton component that can be configured with different shapes. These shapes are defined in the accompanying `Skeleton.css` file. By applying different CSS classes, we can customize the appearance of skeleton elements, such as their size, color, and animation effects.
+
+2. Wrapper Styles: The `SkeletonHome.js` file wraps the skeleton elements in a `div` with the class `wrapper`. This wrapper provides a container for the skeleton elements and allows for additional styling or layout adjustments if needed.
+
+3. Shimmer Effect: The `Shimmer` component adds a subtle shimmer effect to the skeleton elements. This effect is achieved through CSS animations and helps indicate to the user that content is loading.
+
+
+Creating our Skeleton Home page
+Let’s create a SkeletonHome.js file and add this code below to it:
+
+
+import Shimmer from "./Shimmer";
+import SkeletonElement from "./SkeletonElement";
+
+
+const SkeletonHome = ({ theme }) => {
+  const themeClass = theme || "light";
+
+
+  return (
+    <div className={`wrapper ${themeClass}`}>
+      <div className="meals grid grid-cols-1  gap-5 mt-5 xs:grid-cols-2 sm:grid-cols-3 xl:grid-cols-4">
+        <SkeletonElement type="imageSmall" />
+        <SkeletonElement type="imageSmall" />
+        <SkeletonElement type="imageSmall" />
+        <SkeletonElement type="imageSmall" />
+        <SkeletonElement type="imageSmall" />
+        <SkeletonElement type="imageSmall" />
+        <SkeletonElement type="imageSmall" />
+        <SkeletonElement type="imageSmall" />
+        <SkeletonElement type="imageSmall" />
+        <SkeletonElement type="imageSmall" />
+        <SkeletonElement type="imageSmall" />
+        <SkeletonElement type="imageSmall" />
+      </div>
+      <Shimmer />
+    </div>
+  );
+};
+
+
+SkeletonHome.propTypes = {
+  theme: PropTypes.string
+};
+
+
+export default SkeletonHome;
+
+
+
+Now let’s make use of our SkeletonHome.js component in our Home.js component so that we have a skeleton loader on our home component. Copy the code below and paste it into our Home.js component:
+
+
+import { useEffect, useState } from "react";
+import SkeletonHome from "../skeletons/SkeletonHome";
+
+
+const Home = () => {
+  const [meals, setMeals] = useState(null);
+
+
+  useEffect(() => {
+    setTimeout(async () => {
+      const res = await fetch(
+        "https://www.themealdb.com/api/json/v1/1/search.php?s=chicken"
+      );
+      const meals = await res.json();
+      setMeals(meals);
+      console.log(meals.meals[0]);
+    }, 5000);
+  }, []);
+
+
+  return (
+    <>
+      <div className="container">
+        <div className="m-auto max-w-3xl flex flex-col items-center justify-center text-center">
+          <div id="meals" className="meals">
+            {meals &&
+              meals.meals.map((meal) => (
+                <div className="meal" key={meal.idMeal}>
+                  <img
+                    className="meal-img"
+                    src={meal.strMealThumb}
+                    alt={meal.strMeal}
+                  />
+                  <div className="meal-info" data-mealid={meal.idMeal}>
+                    <h3>{meal.strMeal}</h3>
+                  </div>
+                </div>
+              ))}
+              {!meals && [1,2,3,4,5].map((n) => <SkeletonHome key={n} theme="dark" />)}
+          </div>
+          {}
+        </div>
+      </div>
+    </>
+  );
+};
+
+
+export default Home;
+
+
+
+
+
+Explanation of Theme Customization in SkeletonHome.js Component:
+
+The SkeletonHome.js component offers theme customization through the `theme` prop. This prop allows users to specify the color scheme for the skeleton elements, providing flexibility in integrating the skeleton loading experience with different application designs.
+
+1. **Theme Prop Handling**: Within the SkeletonHome.js component, the `theme` prop is utilized to determine the color scheme. By default, if no theme is provided, the component falls back to the "light" theme. This ensures that the component remains functional even if the theme prop is not explicitly set.
+
+```jsx
+const SkeletonHome = ({ theme }) => {
+  const themeClass = theme || "light"; // Default to "light" theme if no theme is provided
+  // Rest of the component code...
+};
+```
+
+2. **Applying Theme Classes**: The determined theme, either "light" or the provided value, is used to dynamically generate CSS classes. These classes are then applied to the wrapper `div` of the skeleton elements, enabling the styling of the skeleton components based on the selected theme.
+
+```jsx
+<div className={`wrapper ${themeClass}`}>
+  {/* Skeleton elements go here */}
+</div>
+```
+
+3. **Theme Flexibility**: By allowing users to specify the theme, developers can seamlessly integrate the skeleton loading experience with their application's design language. For example, setting the theme to "dark" can complement dark mode interfaces, ensuring consistency in visual presentation across different application states.
+
+```jsx
+<SkeletonHome key={n} theme="dark" />
+```
+
+In summary, the SkeletonHome.js component facilitates theme customization through the `theme` prop, providing users with the ability to tailor the skeleton loading experience to match their application's design requirements. This flexibility enhances the overall user experience by ensuring a cohesive and visually appealing transition between content loading and display.
+
+Conclusion:
+
+In wrapping up, adding skeleton loading screens to your React app can make it feel faster and more user-friendly. With components like `SkeletonHome`, you can easily create these loading screens for different parts of your app. By using CSS and React, you can customize how these loading screens look and behave to match your app's style. Ultimately, using skeleton loading screens improves how users perceive your app's speed and makes it more enjoyable to use.
+
+
 Using this writing style (Introduction),  modify this:
 
