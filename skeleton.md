@@ -628,7 +628,7 @@ export default SkeletonHome;
 
 Now let’s make use of our SkeletonHome.js component in our Home.js component so that we have a skeleton loader on our home component. Copy the code below and paste it into our Home.js component:
 
-
+```.jsx
 import { useEffect, useState } from "react";
 import SkeletonHome from "../skeletons/SkeletonHome";
 
@@ -678,7 +678,7 @@ const Home = () => {
 
 
 export default Home;
-
+```
 
 
 
