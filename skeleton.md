@@ -121,38 +121,139 @@ To enhance the appearance of our application, we'll apply some styles to the hea
 Open `index.css` and replace its contents with the following styles:
 
 ```css
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
 header {
-  background: #1e65ff;
-  padding: 10px;
+  font-size: 1.5rem;
+  font-weight: 900;
+  display: grid;
+  align-items: center;
 }
 
+
 header h1 {
-  color: white;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+
+.container {
+  background-color: #6b7280;
+  color: #ffffff;
+  min-height: 100vh;
+  transition-property: all;
+  transition-duration: 1s;
+  transition-timing-function: ease-out;
+}
+
+
+.meals {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.25rem; /* Equivalent to gap-5 in Tailwind */
+  margin-top: 1.25rem; /* Equivalent to mt-5 in Tailwind */
+  transition-property: all;
+  transition-duration: 1s;
+  transition-timing-function: ease-out;
+  padding: 10px 50px;
+}
+
+
+@media (min-width: 640px) {
+  .meals {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+@media (min-width: 768px) {
+  .meals {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+@media (min-width: 1280px) {
+  .meals {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+
+/* .meal class */
+.meal {
+  /* Equivalent to rounded overflow-hidden shadow-md cursor-pointer relative h-60 w-60 xs:h-56 xs:w-52 sm:h-56 sm:w-52 lg:h-56 lg:w-52 text-left; */
+  border-radius: 0.25rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  position: relative;
+  height: 15rem; /* Equivalent to h-60 */
+  width: 15rem; /* Equivalent to w-60 */
+}
+
+
+.meal-img:hover {
+  box-shadow: 0 10px 15px -3px rgba(147, 102, 102, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition-property: all;
+  transition-duration: 1s;
+  transition-timing-function: ease-out;
+}
+
+
+/* .meal-img class */
+.meal-img {
+  /* Equivalent to w-full h-full border-solid border-4 border-white; */
+  width: 100%;
+  height: 100%;
+  border-style: solid;
+  border-width: 4px;
+  border-color: #ffffff; /* Assuming white border */
 }
 ```
 
 ### Explanation of Styles
 
-- **body**: Sets the base margin to 0 and specifies a list of fallback fonts for the body text. Also, enables font smoothing for better text rendering.
-- **code**: Specifies a set of monospaced fonts for displaying code snippets.
-- **header**: Applies a background color (#1e65ff) and padding to the header.
-- **header h1**: Sets the text color to white, defines a maximum width for the content, and centers the header text by setting the margin to auto.
+1. The universal selector (`*`) is used to apply the following styles to all elements on the page:
+   - `margin: 0;` and `padding: 0;` set the margin and padding of all elements to zero, effectively removing any default spacing.
+   - `box-sizing: border-box;` ensures that the total width and height of an element include both its content and padding, but not the margin.
+
+2. The `header` element:
+   - `font-size: 1.5rem;` sets the font size to 1.5 times the default font size.
+   - `font-weight: 900;` makes the text bold.
+   - `display: grid;` uses CSS Grid for layout.
+   - `align-items: center;` vertically centers the content within the header.
+
+3. The `.container` class:
+   - `background-color: #6b7280;` sets the background color to a shade of gray (#6b7280).
+   - `color: #ffffff;` sets the text color to white.
+   - `min-height: 100vh;` ensures that the container takes up at least the full viewport height.
+   - The `transition` properties control the animation duration and timing function when transitioning styles.
+
+4. The `.meals` class:
+   - Uses CSS Grid to create a responsive grid layout with varying column numbers based on screen width.
+   - `gap: 1.25rem;` adds spacing between grid items.
+   - `margin-top: 1.25rem;` provides top margin.
+   - The `transition` properties control the animation when transitioning styles.
+   - `padding: 10px 50px;` adds padding to the container.
+
+5. Media queries:
+   - Adjust the number of columns in the `.meals` grid based on screen width.
+
+6. The `.meal` class:
+   - Creates a card-like styling for meal items.
+   - Sets border radius, overflow behavior, box shadow, cursor, and dimensions.
+
+7. The `.meal-img` class:
+   - Sets the image dimensions and adds a white border.
+
 
 These styles will ensure that your application's header looks clean and visually appealing. The header will have a consistent blue background with white text, providing a professional look.
 
