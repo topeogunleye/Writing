@@ -278,6 +278,26 @@ const Home = ( ) => {
 export default Home;
 ```
 
+## Adding React Router
+
+Since you're using `Link` from `react-router-dom`, we need to install `react-router-dom` in your project. Follow these steps:
+
+1. Open your terminal or command prompt.
+2. Navigate to your project directory.
+3. Run the following command to install `react-router-dom` using npm:
+
+```bash
+npm install react-router-dom
+```
+
+Alternatively, if you're using Yarn, you can use this command:
+
+```bash
+yarn add react-router-dom
+```
+
+4. Once the installation is complete, you can import the necessary components from `react-router-dom` and start defining your routes in your `Home.js` file.
+
 ### Wrapping the App with BrowserRouter
 Let’s wrap our App in main.js with BrowserRouter from react-router-dom. This is because we're using Link from react-router-dom in our Home component, which is calling useContext. The context it is looking for is provided by BrowserRouter, but our app is not wrapped by a BrowserRouter. Your main.js should be like this:
 
